@@ -23,7 +23,7 @@ block content
           button(onclick="window.location.href='/dime'") Dime
           button(onclick="window.location.href='/quarter'") Quarter
         article
-          button.purchase(onclick="window.location.href='/purchase'", { purchaseDisabledProp } style="background-color: #BBFFBB")
+          button.purchase(onclick="window.location.href='/purchase'", disabled=!readyToPurchase style="background-color: #BBFFBB")
             | Purchase
         article.output
           p #{hackerColaMessage}

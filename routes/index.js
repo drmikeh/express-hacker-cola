@@ -9,7 +9,8 @@ function doRender(res) {
   res.render('index', { title: 'Hacker Cola',
                         vendingMachine: vendingMachine,
                         hackerColaMessage: hackerColaMessage,
-                        changeMessage: changeMessage
+                        changeMessage: changeMessage,
+                        readyToPurchase: vendingMachine.isSufficientAmount()
                       }
   );
 }
@@ -19,27 +20,19 @@ router.get('/', function(req, res, next) {
   doRender(res);
 });
 
-function updateDisabled() {
-  purchaseDisabledProp = vendingMachine.isSufficientAmount() ? '' : 'disabled';
-}
-
-
 router.get('/nickel', function(req, res, next) {
   vendingMachine.nickel();
-  updateDisabled();
-  doRender(res);
+  res.redirect('/');
 });
 
 router.get('/dime', function(req, res, next) {
   vendingMachine.dime();
-  updateDisabled();
-  doRender(res);
+  res.redirect('/');
 });
 
 router.get('/quarter', function(req, res, next) {
   vendingMachine.quarter();
-  updateDisabled();
-  doRender(res);
+  res.redirect('/');
 });
 
 router.get('/purchase', function(req, res, next) {
@@ -47,9 +40,8 @@ router.get('/purchase', function(req, res, next) {
     let change = vendingMachine.purchase();
     hackerColaMessage = 'Enjoy your Hacker Cola!';
     changeMessage = 'Your change is ' + change + ' cents.';
-    updateDisabled();
   }
-  doRender(res);
+  res.redirect('/');
 });
 
 module.exports = router;
